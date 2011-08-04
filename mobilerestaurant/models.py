@@ -10,7 +10,8 @@ class MenuList(models.Model):
 		return self.menu_item
 
 class Order(models.Model):
-	order_item = models.ForeignKey('MenuList', null=False)
+	order_details = models.TextField('Order details')
+	order_item = models.ForeignKey('MenuList')#, null=False)
 	quantity = models.IntegerField(default=1)	
 	paid_for = models.BooleanField('Paid for')
 	delivery = models.BooleanField('Do you want your food delivered to you? (50p)', default=False)
@@ -19,7 +20,6 @@ class Order(models.Model):
 	room_num = models.IntegerField('Room number', blank=True)
 	other_location = models.CharField('Other location', blank=True, max_length = 30)
 	tel_num = models.IntegerField('Telephone', blank=True, null=True)
-	order_details = models.TextField('Order details')
 	created = models.DateTimeField('Date and time', auto_now_add=True)
 	total_amount = models.FloatField(blank=True, null=True)
 
