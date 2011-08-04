@@ -4,6 +4,12 @@
 <body>
 Welcome to Mobile Restaurant!
 <a href="/mobilerestaurant/order"><p>Place your order</p></a>
+{% for item in menu %}
+	<ul>
+	Item:{{ item.menu_item  }}
+	Price:{{ item.price }}
+	</ul>
+{% endfor %}
 <input type="Submit" value="Place Order"/>
 </body>
 </html>

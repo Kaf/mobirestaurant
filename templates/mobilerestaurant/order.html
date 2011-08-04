@@ -2,9 +2,50 @@
 <head>
 <title>Mobile Restaurant</title>
 <body>
-<form method='post' action="">
-{{ form }}
-<input type="Submit" value="Place Order"/>
+
+<style type="text/css">
+.item {
+float: left;
+}
+.dropdown {
+clear: right;
+float: right;
+}
+</style>
+
+
+
+<form name="Menu" method="post" action="/mobilerestaurant/placed">
+	<table>
+		{% for item in menu %}
+			<tr><td>
+				<select class="dropdown" name="item{{item.id}}">
+				<option value="0" default>0</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="other">other</option>
+				</select> 
+			    </td><td>{{item.menu_item}}(s)</td><td>GHC {{item.price}}</td>
+			</tr>
+		{% endfor %}
+		<tr><td colspan="3">Phone Number:<input type="text" name="tel" size="10"></td></tr>
+		<tr><td colspan="3">Block<input type="text" name="block" size="10"></td></tr>
+		<tr><td colspan="3">Room<input type="text" name="room" size="10"></td></tr>
+	</table>
+	<input type="Submit" value="Place Order"/>
 </form>
+
+{% comment %}
+<form name="Menu" method="post" action="/mobilerestaurant/placed">
+Order Item<input type="text" name="order_item" size="10"></br>
+Quantity<input type="text" name="quantity" size="10"></br>
+Delievery<input type="text" name="delievery" size="10"></br>
+</br>
+
+Phone Number<input type="text" name="tel" size="10"></br></br></br>
+
+</form>
+{% endcomment %}
 </body>
 </html>
