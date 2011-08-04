@@ -30,15 +30,20 @@ def place_order(request, limit=15):
 
 @csrf_exempt
 def placed(request, limit=15):
+	total = 0
 	newOrder = Order.objects.create(tel_num=request.POST['tel'],block=request.POST['block'],room_num=request.POST['room'])
 	for k,v in request.POST.iteritems():
 		if k[:4]== 'item' and int(v)>0:
 			itemid=int(k[4:])
 			mi=MenuList.objects.get(id=itemid)
-			newOrderItem = Order.objects.create(order=newOrder, Menulist=mi, quantity=int(v))
-	
+			newOrderItem = OrderItem.objects.create(order=newOrder, menuitem=mi, quantity=int(v))
+			total += int(v)*mi.price
+	print mi
 	print newOrderItem
-	return render_to_response('mobilerestaurant/placed.html',{'menu':menu})
+	newOrder.total_amount = total 
+	newOrder.order_details = "Item:"+  str(MenuList.objects.get(id=itemid).menu_item)+"   " +"quantity  " + v +"\n"	
+	newOrder.save()
+	return render_to_response('mobilerestaurant/placed.html', {'total':total})
 	
 	
 	

@@ -11,8 +11,8 @@ class MenuList(models.Model):
 
 class Order(models.Model):
 	order_details = models.TextField('Order details')
-	order_item = models.ForeignKey('MenuList')#, null=False)
-	quantity = models.IntegerField(default=1)	
+	#order_item = models.ForeignKey('MenuList')#, null=False)
+	#quantity = models.IntegerField(default=1)	
 	paid_for = models.BooleanField('Paid for')
 	delivery = models.BooleanField('Do you want your food delivered to you? (50p)', default=False)
 	delivery_cost = models.FloatField(default=.50)
@@ -24,7 +24,17 @@ class Order(models.Model):
 	total_amount = models.FloatField(blank=True, null=True)
 
 	def __unicode__(self):
-		return str(self.order_item)
+		return str(self.block) + str(self.room_num)
+
+
+
+class OrderItem(models.Model):
+	quantity= models.IntegerField() 
+	menuitem = models.ForeignKey(MenuList)
+	order = models.ForeignKey(Order)
+	def __unicode__(self):
+		return str(self.quantity)+","+str(self.menuitem)
 
 admin.site.register(MenuList)
 admin.site.register(Order)
+admin.site.register(OrderItem)
