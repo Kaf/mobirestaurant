@@ -33,7 +33,7 @@ class OrderItem(models.Model):
 	menuitem = models.ForeignKey(MenuList)
 	order = models.ForeignKey(Order)
 	def __unicode__(self):
-		return str(self.quantity)+","+str(self.menuitem)
+		return str(self.menuitem)
 
 admin.site.register(MenuList)
 admin.site.register(Order)

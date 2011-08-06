@@ -24,13 +24,14 @@ def welcome(request, limit=15):
 def place_order(request, limit=15):
 	menu = MenuList.objects.all()
 	order = Order.objects.all()
-	return render_to_response('mobilerestaurant/order.html', {'menu':menu})  
+	return render_to_response('mobilerestaurant/order.html', {'menu':menu,'order':order})  
 
 
 
 @csrf_exempt
-def placed(request, limit=15):
+def bill(request, limit=15):
 	total = 0
+	food = ' '
 	newOrder = Order.objects.create(tel_num=request.POST['tel'],block=request.POST['block'],room_num=request.POST['room'])
 	for k,v in request.POST.iteritems():
 		if k[:4]== 'item' and int(v)>0:
@@ -38,25 +39,19 @@ def placed(request, limit=15):
 			mi=MenuList.objects.get(id=itemid)
 			newOrderItem = OrderItem.objects.create(order=newOrder, menuitem=mi, quantity=int(v))
 			total += int(v)*mi.price
-	print mi
-	print newOrderItem
+			food += "Item:"+  str(MenuList.objects.get(id=itemid).menu_item)+"   " +"quantity:  " + str(newOrderItem.quantity) +"\n"
+	#print mi
+	#print newOrderItem
 	newOrder.total_amount = total 
-	newOrder.order_details = "Item:"+  str(MenuList.objects.get(id=itemid).menu_item)+"   " +"quantity  " + v +"\n"	
+	newOrder.order_details = food
+	indfood = newOrder.order_details.split('\n')[:-1]
 	newOrder.save()
-	return render_to_response('mobilerestaurant/placed.html', {'total':total})
+	return render_to_response('mobilerestaurant/bill.html', {'total':total,'indfood':indfood})
 	
 	
 	
-def calc_total(request):
-	#meal = MenuList.objects.filter(pk==id)
-	#order = Order.objects.objects.get(quantity__pk=id)
-	order = Order.objects.all()
-	print order
-	order.order_details = order.Order_item
-	
-	total_cost = (meal.price*order.quantity) + order.delivery_cost
-	return render_to_response('mobilerestaurant/bill.html', {'total_cost':total_cost, 'order':order, 'meal':meal, #'request':request
-	})
+def placed(request):
+	return render_to_response('mobilerestaurant/placed.html')
 
 
 
