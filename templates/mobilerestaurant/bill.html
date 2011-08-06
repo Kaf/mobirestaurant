@@ -2,7 +2,16 @@
 <head>
 <title>Mobile Restaurant</title>
 <body>
-{{ total_cost }}
-<input type="Submit" value="Place Order"/>
+Thanks for your order!</br>
+Your total cost is GH{{ total }}
+You ordered for the following:</br>
+{% for order in indfood %}
+  {{order}}</br>
+{% endfor %}
+
+<p>Please confirm that this was you order by pressing the <b>confirm</b> button</p>
+<form name="confirm" method="" action="/mobilerestaurant/placed">
+<input type="Submit" value="confirm"/>
+</form>
 </body>
 </html>

@@ -15,7 +15,7 @@ float: right;
 
 
 
-<form name="Menu" method="post" action="/mobilerestaurant/placed">
+<form name="Menu" method="post" action="/mobilerestaurant/bill">
 	<table>
 		{% for item in menu %}
 			<tr><td>
@@ -32,20 +32,11 @@ float: right;
 		<tr><td colspan="3">Phone Number:<input type="text" name="tel" size="10"></td></tr>
 		<tr><td colspan="3">Block<input type="text" name="block" size="10"></td></tr>
 		<tr><td colspan="3">Room<input type="text" name="room" size="10"></td></tr>
+		<tr><td colspan="3">Want it delivered??<input type="checkbox" name="delivery"></td></tr>
 	</table>
 	<input type="Submit" value="Place Order"/>
 </form>
 
-{% comment %}
-<form name="Menu" method="post" action="/mobilerestaurant/placed">
-Order Item<input type="text" name="order_item" size="10"></br>
-Quantity<input type="text" name="quantity" size="10"></br>
-Delievery<input type="text" name="delievery" size="10"></br>
-</br>
 
-Phone Number<input type="text" name="tel" size="10"></br></br></br>
-
-</form>
-{% endcomment %}
 </body>
 </html>

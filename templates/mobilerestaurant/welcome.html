@@ -2,14 +2,10 @@
 <head>
 <title>Mobile Restaurant</title>
 <body>
-Welcome to Mobile Restaurant!
-<a href="/mobilerestaurant/order"><p>Place your order</p></a>
-{% for item in menu %}
-	<ul>
-	Item:{{ item.menu_item  }}
-	Price:{{ item.price }}
-	</ul>
-{% endfor %}
+Welcome to Mobile Restaurant!</br>
+<p>Want to eat something really fast?.....Then place your order</p> 
+<form name="welcome" method="" action="/mobilerestaurant/order">
 <input type="Submit" value="Place Order"/>
+</form>
 </body>
 </html>
